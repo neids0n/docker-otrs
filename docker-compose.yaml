@@ -1,0 +1,38 @@
+version: '2'
+services:
+  mysql:
+    image: mysql:debian
+    container_name: mysql-otrs
+    hostname: mysql-otrs
+    restart: always
+    networks:
+      - otrs_network
+    env_file:
+      - ./mysql.env
+    volumes:
+      - 'mysql_data:/var/lib/mysql'
+
+  otrs:
+    image: otrs:latest
+    container_name: otrs
+    hostname: otrs
+    restart: always
+    networks:
+      - otrs_network
+    ports:
+      - '8080:80'
+      - '8443:443'
+    volumes:
+      - 'otrs_data:/opt/otrs'
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:
+    driver: local
+  otrs_data:
+    driver: local
+
+networks:
+  otrs_network:
+    driver: bridge
