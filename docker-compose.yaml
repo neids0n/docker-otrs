@@ -10,7 +10,7 @@ services:
     env_file:
       - ./mysql.env
     volumes:
-      - 'mysql_data:/var/lib/mysql'
+      - 'otrs_dbdata:/var/lib/mysql'
 
   otrs:
     image: otrs:latest
@@ -28,7 +28,7 @@ services:
       - mysql
 
 volumes:
-  mysql_data:
+  otrs_dbdata:
     driver: local
   otrs_data:
     driver: local
