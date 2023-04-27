@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Criar pasta do otrs em /opt e alterar permissões
+wget https://github.com/neids0n/docker-otrs/raw/main/otrs.tar.gz
+tar xzf otrs.tar.gz -C /opt/
+rm otrs.tar.gz
+chmod -R 775 /opt/otrs/
+chown -R www-data: /opt/otrs/
+
 # Criar o usuário OTRS e adicioná-lo ao grupo www-data
 useradd -d /opt/otrs -c 'OTRS user' otrs
 usermod -G www-data otrs
