@@ -10,6 +10,7 @@ cron \
 perl \
 make \
 systemd \
+wget \
 libdigest-perl-md5-perl \
 libapache2-mod-perl2 \
 libarchive-zip-perl \
@@ -34,9 +35,6 @@ libxml-libxml-perl \
 libxml-libxslt-perl \
 libxml-parser-perl \
 libyaml-libyaml-perl
-
-# Copiar OTRS
-COPY ./otrs /opt/otrs
 
 # Copiar e executar o script de instalação
 COPY otrs-start.sh /opt/
