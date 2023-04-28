@@ -13,7 +13,7 @@ services:
       - 'otrs_dbdata:/var/lib/mysql'
 
   otrs:
-    image: otrs:latest
+    image: neids0n/otrs:6.0.36
     container_name: otrs
     hostname: otrs
     restart: always
