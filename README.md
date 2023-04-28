@@ -1,6 +1,8 @@
 # 🛠️ docker-otrs 
 Aplicação OTRS no docker
 
+- O OTRS é um sistema moderno e flexível de gerenciamento de tíquetes e processos.
+
 ## Database Setup and Basic System Configuration
 
 Please use the web installer at http://localhost/otrs/installer.pl (replace "localhost" with your OTRS hostname) to setup your database and basic system settings such as email accounts.
