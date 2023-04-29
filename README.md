@@ -49,4 +49,107 @@ Stopping the cron jobs is also possible (useful for maintenance):
 
 ```
 shell> /opt/otrs/bin/Cron.sh stop
-```    
+```
+
+# :bulb: How to use this image
+
+##  Deploy OTRS
+```
+docker run --name mysql -e MYSQL_ROOT_PASSWORD=neids0n -e MYSQL_DATABASE=otrsdb -e MYSQL_USER=otrs_user -e MYSQL_PASSWORD=otrs -d mysql:debian
+docker run --name otrs --link mysql:mysql -p 80:80 -d neids0n/otrs:6.0.36
+```
+
+## Deploy GLPI with database and persistence data
+
+- First, create Mysql container with volume
+
+```
+docker run --name mysql -e MYSQL_ROOT_PASSWORD=neids0n -e MYSQL_DATABASE=otrsdb -e MYSQL_USER=otrs_user -e MYSQL_PASSWORD=otrs --volume otrs_dbdata:/var/lib/mysql -d mysql:debian 
+```
+
+- Then, create GLPI container with volume and link Mysql container
+
+```
+docker run --name otrs --link mysql:mysql -p 80:80 --volume otrs_data:/opt/otrs -d neids0n/otrs:6.0.36
+```
+
+## Deploy with docker-compose
+
+To deploy with docker compose, you use docker-compose.yml and mysql.env file. You can modify mysql.env
+
+- mysql.env
+```
+MYSQL_ROOT_PASSWORD=neids0n
+MYSQL_DATABASE=otrsdb
+MYSQL_USER=otrs_user
+MYSQL_PASSWORD=otrs
+```
+
+- docker-compose.yaml
+```
+version: '2'
+services:
+  mysql:
+    image: mysql:debian
+    container_name: mysql-otrs
+    hostname: mysql-otrs
+    restart: always
+    networks:
+      - otrs_network
+    env_file:
+      - ./mysql.env
+    volumes:
+      - 'otrs_dbdata:/var/lib/mysql'
+
+  otrs:
+    image: neids0n/otrs:6.0.36
+    container_name: otrs
+    hostname: otrs
+    restart: always
+    networks:
+      - otrs_network
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - 'otrs_data:/opt/otrs'
+    depends_on:
+      - mysql
+
+volumes:
+  otrs_dbdata:
+    driver: local
+  otrs_data:
+    driver: local
+
+networks:
+  otrs_network:
+    driver: bridge
+```
+
+To deploy, just run the following command on the same directory as files
+
+```
+docker-compose up -d
+```
+
+# Environnment variables
+
+## TIMEZONE
+
+If you need to set timezone for Apache and PHP
+
+From commande line
+
+```
+docker run --name otrs --hostname otrs --link mysql:mysql --volume otrs_data:/opt/otrs -p 80:80 --env "TIMEZONE=America/Bahia" -d neids0n/otrs:6.0.36
+```
+
+## From docker-compose
+
+Modify this settings
+
+```
+environment:
+     TIMEZONE=America/Bahia
+```
