@@ -51,7 +51,7 @@ Stopping the cron jobs is also possible (useful for maintenance):
 shell> /opt/otrs/bin/Cron.sh stop
 ```
 
-# :bulb: How to use this image
+# 💡 How to use this image
 
 ##  Deploy OTRS
 ```
