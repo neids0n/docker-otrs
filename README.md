@@ -80,9 +80,9 @@ To deploy with docker compose, you use docker-compose.yml and mysql.env file. Yo
 - mysql.env
 ```
 MYSQL_ROOT_PASSWORD=neids0n
-MYSQL_DATABASE=otrsdb
-MYSQL_USER=otrs_user
-MYSQL_PASSWORD=otrs
+MYSQL_DATABASE=otrs
+MYSQL_USER=otrs
+MYSQL_PASSWORD=passwd
 ```
 
 - docker-compose.yaml
