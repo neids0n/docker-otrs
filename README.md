@@ -55,7 +55,7 @@ shell> /opt/otrs/bin/Cron.sh stop
 
 ##  Deploy OTRS
 ```
-docker run --name mysql -e MYSQL_ROOT_PASSWORD=neids0n -e MYSQL_DATABASE=otrsdb -e MYSQL_USER=otrs_user -e MYSQL_PASSWORD=otrs -d mysql:debian
+docker run --name mysql -e MYSQL_ROOT_PASSWORD=neids0n -e MYSQL_DATABASE=otrs -e MYSQL_USER=otrs -e MYSQL_PASSWORD=passwd -d mysql:debian
 docker run --name otrs --link mysql:mysql -p 80:80 -d neids0n/otrs:6.0.36
 ```
 
@@ -64,7 +64,7 @@ docker run --name otrs --link mysql:mysql -p 80:80 -d neids0n/otrs:6.0.36
 - First, create Mysql container with volume
 
 ```
-docker run --name mysql -e MYSQL_ROOT_PASSWORD=neids0n -e MYSQL_DATABASE=otrsdb -e MYSQL_USER=otrs_user -e MYSQL_PASSWORD=otrs --volume otrs_dbdata:/var/lib/mysql -d mysql:debian 
+docker run --name mysql -e MYSQL_ROOT_PASSWORD=neids0n -e MYSQL_DATABASE=otrs -e MYSQL_USER=otrs -e MYSQL_PASSWORD=passwd --volume otrs_dbdata:/var/lib/mysql -d mysql:debian 
 ```
 
 - Then, create GLPI container with volume and link Mysql container
