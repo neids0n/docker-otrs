@@ -1,7 +1,6 @@
-# 🛠️ docker-otrs 
-Aplicação OTRS no docker
+# Project to deploy OTRS with docker
 
-- O OTRS é um sistema moderno e flexível de gerenciamento de tíquetes e processos.
+- OTRS is a modern and flexible ticket and process management system.
 
 ## Database Setup and Basic System Configuration
 
